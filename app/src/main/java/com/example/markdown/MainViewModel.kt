@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.markdown.models.LoadScreenEvent
+import com.example.markdown.models.LoadScreenState
+import com.example.markdown.models.MarkDownState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,22 +21,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
-sealed class MarkDownState{
-    object Dummy: MarkDownState()
-    object Loading: MarkDownState()
-    data class  Error( val error: String): MarkDownState()
-    data class Success(val markdown: String): MarkDownState()
-}
-
-data class LoadScreenState(
-    val editMode: Boolean,
-    val url: String
-)
-sealed class LoadScreenEvent{
-    data class OnUrlUpdated(val newUrl: String): LoadScreenEvent()
-    data class OnEditModeToggled(val newSet: Boolean): LoadScreenEvent()
-
-}
 class MainViewModel: ViewModel() {
 
     private val _state = MutableStateFlow<MarkDownState>(MarkDownState.Dummy)
