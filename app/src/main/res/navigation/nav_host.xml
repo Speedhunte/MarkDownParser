@@ -25,5 +25,9 @@
         android:id="@+id/editFragment"
         android:name="com.example.markdown.fragments.EditFragment"
         android:label="fragment_edit"
-        tools:layout="@layout/fragment_edit" />
+        tools:layout="@layout/fragment_edit" >
+        <action
+            android:id="@+id/action_editFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
 </navigation>

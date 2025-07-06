@@ -2,6 +2,7 @@ package com.example.markdown.fragments
 
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.markdown.MainViewModel
 import com.example.markdown.MarkDownState
 import com.example.markdown.R
@@ -48,7 +50,7 @@ class EditFragment : Fragment() {
             viewModel.state.collect { state ->
                 if(state is MarkDownState.Success){
                     editText.setText(state.markdown)
-                    saveButton.isEnabled = state.markdown.isBlank()
+                    saveButton.isEnabled = !state.markdown.isBlank()
                 }
             }
         }
@@ -57,6 +59,7 @@ class EditFragment : Fragment() {
             val newText = editText.text.toString()
             viewModel.setMarkdownContent(newText)
             Toast.makeText(requireContext(), "Сохранено", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_editFragment_to_viewFragment)
         }
         boldButton.setOnClickListener {
             wrapSelection("**", "**")
